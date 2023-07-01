@@ -17,6 +17,10 @@ class ProfileController extends Controller
     #[ResponseFromApiResource(UserResource::class, User::class)]
     public function show()
     {
-        return new UserResource(Auth::user());
+        $user = Auth::user();
+
+        $user->load(['city.country']);
+
+        return new UserResource($user);
     }
 }

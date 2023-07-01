@@ -4,9 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Auth;
 
-class UserResource extends JsonResource
+class CityResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,11 +16,12 @@ class UserResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'country_id' => $this->country_id,
             'name' => $this->name,
-            'email' => $this->when(optional(Auth::user())->isAdmin(), $this->email),
             //Complementario
             //Relaciones
-            'city' => new CityResource($this->whenLoaded('city')),
+            'country' => new CountryResource($this->whenLoaded('country')),
+            'users' => UserResource::collection($this->whenLoaded('users'))
         ];
     }
 }
