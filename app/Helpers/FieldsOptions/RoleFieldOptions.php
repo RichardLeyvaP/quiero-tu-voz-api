@@ -8,14 +8,12 @@ namespace App\Helpers\FieldsOptions;
 enum RoleFieldOptions: int implements BaseFunctionsFieldsOptions
 {
     case ADMIN = 1;
-    case LOCUTOR = 2;
-    case CUSTOMER = 3;
+    case CUSTOMER = 2;
 
     public function label(): string
     {
         return match ($this) {
             static::ADMIN => __('Administrador'),
-            static::LOCUTOR => __('Locutor'),
             static::CUSTOMER => __('Cliente')
         };
     }
