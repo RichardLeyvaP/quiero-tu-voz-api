@@ -1,0 +1,137 @@
+openapi: 3.0.3
+info:
+  title: 'Locutores Associados'
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/login:
+    post:
+      summary: Login
+      operationId: login
+      description: 'Permite acceder al sistema y obtener el token de autenticación'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  access_token: '{TOKEN}'
+                  token_type: Bearer
+                properties:
+                  access_token:
+                    type: string
+                    example: '{TOKEN}'
+                  token_type:
+                    type: string
+                    example: Bearer
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'El campo value no es un correo válido. El campo value no debe ser mayor que 255 caracteres.'
+                  example: qhaag@example.net
+                password:
+                  type: string
+                  description: ''
+                  example: 'c8bI4j"J#8__Oda<A<o^'
+              required:
+                - email
+                - password
+      security: []
+  /api/logout:
+    get:
+      summary: Logout
+      operationId: logout
+      description: 'Cierra la sección actual'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    message: 'Ha cerrado su sesión'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: 'Ha cerrado su sesión'
+      tags:
+        - Authentication
+  /api/profile:
+    get:
+      summary: Show
+      operationId: show
+      description: 'Devuelve la información del usuario actual'
+      parameters:
+        -
+          in: header
+          name: Authorization
+          description: ''
+          example: 'Bearer {YOUR_AUTH_KEY}'
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 1
+                    name: 'Darrin Denesik'
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      name:
+                        type: string
+                        example: 'Darrin Denesik'
+      tags:
+        - Profile
+tags:
+  -
+    name: Authentication
+    description: 'Endpoints relacionados con la autenticación'
+  -
+    name: Profile
+    description: 'Endpoints de Perfil de Usuario'
+components:
+  securitySchemes:
+    default:
+      type: http
+      scheme: bearer
+      description: ''
+security:
+  -
+    default: []
