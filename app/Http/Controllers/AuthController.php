@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Knuckles\Scribe\Attributes\Endpoint;
 use Knuckles\Scribe\Attributes\Response;
 use hisorange\BrowserDetect\Parser as Browser;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Knuckles\Scribe\Attributes\Group;
 use Illuminate\Support\Str;
@@ -50,5 +53,24 @@ class AuthController extends Controller
                 'message' => 'Ha cerrado su sesión'
             ]
         ]);
+    }
+
+    #[Endpoint('Register', 'Registra un usuario en el sistema')]
+    #[Response(['data' => ['message' => 'Registrado correctamente']])]
+    public function register(RegisterRequest $request)
+    {
+        $user = User::create([
+            'city_id' => $request->city_id,
+            'name' => $request->name,
+            'last_name' => $request->last_name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'role' => $request->role,
+            'password' => Hash::make($request->password)
+        ]);
+        return response()->json([
+            'message' => '!Registrado Correctamente!',
+            'user' => $user
+        ], 201);
     }
 }

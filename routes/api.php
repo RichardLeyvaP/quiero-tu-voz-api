@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 Route::post('login', [AuthController::class, 'login'])->name('api.auth.login');
+Route::post('register', [AuthController::class, 'register'])->name('api.auth.register');
 
 Route::middleware('auth:sanctum')->group(function () {
     //Current User

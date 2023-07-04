@@ -21,7 +21,7 @@ class CityController extends Controller
     {
         $this->authorize('viewAny', City::class);
 
-        return CityResource::collection(City::all());
+        return CityResource::collection(City::with('country')->get());
     }
 
     #[Endpoint('Store', 'Permite guardar una Ciudad')]
