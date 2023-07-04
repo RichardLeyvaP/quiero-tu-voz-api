@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,4 +29,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Profile
     Route::get('profile', [ProfileController::class, 'show'])->name('api.auth.profile');
+
+    //Country
+    Route::apiResource('country', CountryController::class);
+
+    //City
+    Route::apiResource('city', CityController::class);
 });
